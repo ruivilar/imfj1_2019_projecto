@@ -47,7 +47,7 @@ def main():
     # Specify the rotation of the object. It will rotate 15 degrees around the axis given, 
     # every second
     angle = 15
-    axis = vector3(1,0.7,0.2)
+    axis = vector3(1,1,1)
     axis.normalize()
 
     # Timer
@@ -69,9 +69,64 @@ def main():
         # Clears the screen with a very dark blue (0, 0, 20)
         screen.fill((0,0,0))
 
-        # Rotates the object, considering the time passed (not linked to frame rate)
-        q = from_rotation_vector((axis * math.radians(angle) * delta_time).to_np3())
-        obj1.rotation = q * obj1.rotation
+        # Rotates the object
+        k = pygame.key.get_pressed()
+        
+        #around y axis
+        if (k[pygame.K_RIGHT]):
+            angle = 15
+            axis = vector3(0,1,0)
+            axis.normalize()
+            q = from_rotation_vector((axis * math.radians(angle) * delta_time).to_np3())
+            obj1.rotation = q * obj1.rotation
+        
+        if (k[pygame.K_LEFT]):
+            angle = 15
+            axis = vector3(0,-1,0)
+            axis.normalize()
+            q = from_rotation_vector((axis * math.radians(angle) * delta_time).to_np3())
+            obj1.rotation = q * obj1.rotation
+
+        #around x axis
+        if (k[pygame.K_UP]):
+            angle = 15
+            axis = vector3(1,0,0)
+            axis.normalize()
+            q = from_rotation_vector((axis * math.radians(angle) * delta_time).to_np3())
+            obj1.rotation = q * obj1.rotation
+        
+        if (k[pygame.K_DOWN]):
+            angle = 15
+            axis = vector3(-1,0,0)
+            axis.normalize()
+            q = from_rotation_vector((axis * math.radians(angle) * delta_time).to_np3())
+            obj1.rotation = q * obj1.rotation
+
+        #around z axis
+        if (k[pygame.K_PAGEUP]):
+            angle = 15
+            axis = vector3(0,0,1)
+            axis.normalize()
+            q = from_rotation_vector((axis * math.radians(angle) * delta_time).to_np3())
+            obj1.rotation = q * obj1.rotation
+        
+        if (k[pygame.K_PAGEDOWN]):
+            angle = 15
+            axis = vector3(0,0,-1)
+            axis.normalize()
+            q = from_rotation_vector((axis * math.radians(angle) * delta_time).to_np3())
+            obj1.rotation = q * obj1.rotation
+       
+       
+       
+       
+       
+       
+       
+       
+
+        
+        
 
         scene.render(screen)
 
