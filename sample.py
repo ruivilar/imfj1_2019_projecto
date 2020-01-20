@@ -67,12 +67,12 @@ def main():
                     return
 
         # Clears the screen with a very dark blue (0, 0, 20)
-        screen.fill((0,0,0))
+        screen.fill((0,0,20))
 
-        # Rotates the object
+        # Rotates and moves the object
         k = pygame.key.get_pressed()
         
-        #around y axis
+        # Around y axis - RIGHT/LEFT
         if (k[pygame.K_RIGHT]):
             angle = 35
             axis = vector3(0,1,0)
@@ -87,7 +87,7 @@ def main():
             q = from_rotation_vector((axis * math.radians(angle) * delta_time).to_np3())
             obj1.rotation = q * obj1.rotation
 
-        #around x axis
+        # Around x axis - UP/DOWN
         if (k[pygame.K_UP]):
             angle = 35
             axis = vector3(1,0,0)
@@ -102,7 +102,7 @@ def main():
             q = from_rotation_vector((axis * math.radians(angle) * delta_time).to_np3())
             obj1.rotation = q * obj1.rotation
 
-        #around z axis
+        # Around z axis - PAGEUP/PAGEDOWN
         if (k[pygame.K_PAGEUP]):
             angle = 35
             axis = vector3(0,0,1)
@@ -116,47 +116,47 @@ def main():
             axis.normalize()
             q = from_rotation_vector((axis * math.radians(angle) * delta_time).to_np3())
             obj1.rotation = q * obj1.rotation
-        
-        #Object moves right
+
+        # Object moves right - S
         if (k[pygame.K_d]):
-            desloca = vector3(-0.01,0,0)
+            desloca = vector3(-0.005,0,0)
 
             
             obj1.position += desloca
 
-        #object moves left
+        # Object moves left - A
         if (k[pygame.K_a]):
-            desloca = vector3(0.01,0,0)
+            desloca = vector3(0.005,0,0)
 
             
             obj1.position += desloca
        
 
-        #object moves up
+        # Object moves up - W
         if (k[pygame.K_w]):
-            desloca = vector3(0,0.01,0)
+            desloca = vector3(0,0.005,0)
 
             
             obj1.position += desloca
 
 
-        #object moves down
+        # Object moves down - S
         if (k[pygame.K_s]):
-            desloca = vector3(0,-0.01,0)
+            desloca = vector3(0,-0.005,0)
 
             
             obj1.position += desloca
 
-        #object moves fowrard( mal escrito)
+        # Object moves forward - Q
         if (k[pygame.K_q]):
-            desloca = vector3(0,0,0.01)
+            desloca = vector3(0,0,-0.005)
 
             
             obj1.position += desloca
 
-        #object moves back
+        # 0bject moves back - E
         if (k[pygame.K_e]):
-            desloca = vector3(0,0,-0.01)
+            desloca = vector3(0,0,0.005)
 
             
             obj1.position += desloca
