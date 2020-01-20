@@ -1,117 +1,60 @@
-# Introdução à Matemática e Física Para Videojogos I - Final Project
+# __Projeto Final__ 
+Afonso Lage - a21901381 - (git) AfonsoLage-boop  
+André Santos - a21901767 - (git) andrepucas  
+Rui Vilar - a21902960 - (git) ruivilar
+</br>
 
-This is a very rudimentary, wireframe 3d engine.
+__Grupo:__ Iniciados
+</br>
 
-![alt text](https://github.com/VideojogosLusofona/imfj1_2019_projecto/raw/master/screenshots/title.png "Sample application")
+---
+## __Observação Inicial__
+Neste trabalho nós fizemos o visualiser na totalidade onde decidimos trocar os dois quadrados por duas pirâmides (uma grande cor de rosa e uma do tipo child, branca).
 
-This serves as a basis for the "Introdução à Matemática e Física Para Videojogos I" course, on the [Licenciatura em Videojogos][lv] da
-[Universidade Lusófona de Humanidades e Tecnologias][ULHT] in Lisbon.
+A grande maioria dos controlos do visualizer foram implementados por Afonso Lage (rotação e translação) e a substituição dos objetos por pirâmides foram feitas por André Santos. O Rui iniciou o desenvolvimento do FPS. 
 
-The engine was built using:
-* Python 3.6
-* Pygame (https://www.pygame.org/news)
-* Numpy (https://numpy.org/devdocs/user/quickstart.html)
-* Numpy-quaternion (https://pypi.org/project/numpy-quaternion/)
+O FPS foi a parte que ficou mais incompleta, onde temos apenas alguns controlos basicos e objetos.  
 
-There is a sample application that can be run by using:
-`py.exe sample.py` or `python sample.py` or `python3.6 sample.py`, depending on your Python installation.
+__Nota:__ Nós trocamos o nome do sample.py para visualizer.py e criámos uma cópia do visualizer para trabalhar no fps-like.py
+</br></br>
 
-## Assignment
+---
 
-The assignment for the course is as follows:
-* Build a "Viewer" application. You can use the sample application as a basis. That application has to feature the following functionality:
-  - Display a 3d object (see below) in the centre of the screen. Control of the visualization has to be done using the following keys:
-    - Left/Right arrow: Rotate object around its Y axis
-    - Up/Down arrow: Rotate object around its X axis
-    - PgUp/PgDown: Rotate object around its Z axis
-    - W/S: Move object up and down relative to the screen
-    - A/D: Move object right and left relative to the screen
-    - Q/E: Move object forward or back relative to the screen
-  - Create a model other than a cube for this display. That model can be loaded from a file (in a format like JSON, etc) or can be built totally   in code. The model has to include sub-objects (like in the sample the object is made of the red cube and a child green cube)
-* Build a "FPS-like" application.
-  - Create an environment where the player can roam using standard FPS controls. The environment can be just a series of cubes with different scales and positions
-  - Implement backface culling.
-    - Backface culling stops the polygons that are facing away from the camera from being renderer
-    - Hint: You can use the "face normal" and a dot product to detect these cases
-    - You can check this video for a more in-depth explanation: https://www.youtube.com/watch?v=ShTiQGxiZRk
-  - Implement filled geometry, replacing the wireframe
-    - Hint: you'll have to sort objects by distance and draw back to front)
-  - Stop objects that are behind the camera from being renderered
-    - You can do this per-object, or per polygon
-  - Implement very simple point lighting:
-    - Create a PointLight3d class and extend the Scene class so you're able to add light(s) to it
-    - Implement shading based on the light:
-      - Hint: Light intensity = max(0, dot(Face Normal, Incoming Light Direction))
-      - Hint: Polygon Color = Light Intensity * Color
-      
-## Project delivery
 
-* Project can be made individually or with a group of up to 3 students.
-* Git commit history will be analyzed to see individual work of students in the overall project
-* Project has to be delivered up 20th January 2020 (midnight), and link delivered on the course's Moodle page
-  - Deliverables have to include a link to the Github repo
-    - If you want to use a private repository, instead of a public one, you can deliver all the files in a .zip file, __**INCLUDING**__ the .git directory for git usage analysis 
-  - Project has to include a report, in a `readme.md` file. This report has to include the work done on the project, and the individual contributions of the group.
-  - Report should also include (besides the names and numbers of students), their Github account username.
-  - Report has to be formated in Markdown, as taught on the November workshop.
-  - Extra credit on reports that include a short postmortem, where students explain what went right with the project and what went wrong
-* Grade will consider the following:
-  - How much was achieved from the overal goals
-    - Viewer application is considered the minimum viable delivery
-  - Functionality and lack of bugs
-  - Overall quality of code, including documentation
-  - GIT usage throughout the project, as well as individual contributions of students
+## Controlos do visualizer: 
+Para fazer esta parte foram criados vários ifs que sempre que o jogador carrega na tecla de movimento redefinem o angulo, o vetor  e normalizam esse vetor. 
 
-## Installation of required modules
+Depois reutilizámos a equação que estava a ser usada para a rotação automática dos objetos para condizer com o que precisávamos.
 
-To run the sample application, you'll have to install all the used modules:
+Para o movimento dos objetos simplesmente foi somado um vetor que move o objeto na direção desejada.
 
-* `pip install pygame`
-* `pip install numpy`
-* `pip install numpy-quaternion`
+## Novos objetos no visualizer: 
+Para a criação de novos objetos foi preciso criar também novas funções no módulo mesh.py entre as quais: __create_pyramid__
+e __create_triangle__  .
 
-Although not needed, to avoid some warnings on application startup, you can install two additional modules:
+Ambas muito semelhantes e inspiradas nas funções usadas para a criação dos cubos.
 
-* `pip install numba`
-* `pip install scipy`
+Para fazer então a pirâmide foi reutilizada uma das faces do cubo (a de baixo, criada na função __create_quad__) e criados dois triangulos com a função __create_triangle__.
 
-If pip is not available on the command line, you can try to invoke it through the module interface on Python:
+Colocar os triângulos nas posições certas e descobrir quais os appends para juntar os vertices foi um desafio que acabou por ser facilitado quando percebemos que só precisávamos de dois triângulos e de uma base para fazer uma pirâmide apenas com arestas.
 
-* `python -m pip install <name of package>`
+## FPS-like:
+Fizemos uma aproximação de uma _reticle_ (visto que é um FPS) e preenchemos também o cenário.
 
-## Work on the project
+Alterámos também os movimentos (provenientes do visualizer) para corresponder a controlos WASD de um FPS. Estas modificações encontram se comentadas no código.
 
-We recomend building a fork of this project, and doing additional work on your repository. 
+</br>
 
-* Create a copy (fork) of this repository (normally called _upstream_) in your Github account (**Fork** button in the upper right corner). The copy of the repository is usually called _origin_
-* Get a local copy (on your PC) of the _origin_ repository, with the comand `git clone https://github.com/<your_username>/imfj1_2019_projecto.git` (replace `<your username>` by your username in Github)
-* Link the local repository with the remote _upstream_ repository with the command: `git remote add upstream https://VideojogosLusofona/imfj1_2019_projecto.git`
+---
+## __PostMortem__
 
-Periodically, update your repository with changes done on the source `imfj1_2019_projecto` repo (in case bug fixes are introduced):
+Neste projeto houve mais coisas a correrem mal do que bem, especialmente na parte do fps, que começámos bastante à ultima da hora para o que é.
 
-* Make sure you're working on the _master_ branch:
-  - `git checkout master`
-* Download any updates on the imfj1_2019_projecto source repository by merging them with your _master_ branch:
-  - `git fetch upstream`
-  - `git merge upstream/master`
-* Upload (_push_) the changes on _upstream_ to the _origin_ repository:
-  - `git push origin master`
+No visualizer o maior problema foi descobrir como é que os appends que formam as faces funcionavam (foi gasto algum papel para descobrir o que estava a acontecer). Depois de percebido, atribuir as somas de vetores necessárias para que os triângulos ficassem na posição certa tornou-se muito mais facil.
 
-Do your normal work and commit/pull/push as taught. Grade will take in account how well GIT is used throughout the project.
+Um problema recorrente no fps foi a tentativa de fazer o jogador virar-se. A nossa primeira hipotese para resolver isto consistia em detetar onde estava o mouse no ecrâ e depois mexer os objetos para a esquerda ou direita. Para além da nossa implementação funcionar mal, era também deselegante.
+</br>
 
-## Licenses
 
-All code in this repo is made available through the [GPLv3] license.
-The text and all the other files are made available through the 
-[CC BY-NC-SA 4.0] license.
 
-## Metadata
 
-* Autor: [Diogo Andrade][]
-
-[Diogo Andrade]:https://github.com/DiogoDeAndrade
-[GPLv3]:https://www.gnu.org/licenses/gpl-3.0.en.html
-[CC BY-NC-SA 4.0]:https://creativecommons.org/licenses/by-nc-sa/4.0/
-[Bfxr]:https://www.bfxr.net/
-[ULHT]:https://www.ulusofona.pt/
-[lv]:https://www.ulusofona.pt/licenciatura/videojogos
