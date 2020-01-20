@@ -19,6 +19,10 @@ def main():
     res_x = 640
     res_y = 480
 
+    # Window limits for looking around (640/3)
+    leftside = 213
+    rightside = 426
+
     # Create a window and a display surface
     screen = pygame.display.set_mode((res_x, res_y))
 
@@ -70,80 +74,27 @@ def main():
         # Clears the screen with a very dark blue (0, 0, 20)
         screen.fill((0,0,20))
 
-        # Rotates and moves the object
-        k = pygame.key.get_pressed()
-        
-        # Around y axis - RIGHT/LEFT
-        if (k[pygame.K_RIGHT]):
-            angle = 35
-            axis = vector3(0,1,0)
-            axis.normalize()
-            q = from_rotation_vector((axis * math.radians(angle) * delta_time).to_np3())
-            obj1.rotation = q * obj1.rotation
-        
-        if (k[pygame.K_LEFT]):
-            angle = 35
-            axis = vector3(0,-1,0)
-            axis.normalize()
-            q = from_rotation_vector((axis * math.radians(angle) * delta_time).to_np3())
-            obj1.rotation = q * obj1.rotation
-
-        # Around x axis - UP/DOWN
-        if (k[pygame.K_UP]):
-            angle = 35
-            axis = vector3(1,0,0)
-            axis.normalize()
-            q = from_rotation_vector((axis * math.radians(angle) * delta_time).to_np3())
-            obj1.rotation = q * obj1.rotation
-        
-        if (k[pygame.K_DOWN]):
-            angle = 35
-            axis = vector3(-1,0,0)
-            axis.normalize()
-            q = from_rotation_vector((axis * math.radians(angle) * delta_time).to_np3())
-            obj1.rotation = q * obj1.rotation
-
-        # Around z axis - PAGEUP/PAGEDOWN
-        if (k[pygame.K_PAGEUP]):
-            angle = 35
-            axis = vector3(0,0,1)
-            axis.normalize()
-            q = from_rotation_vector((axis * math.radians(angle) * delta_time).to_np3())
-            obj1.rotation = q * obj1.rotation
-        
-        if (k[pygame.K_PAGEDOWN]):
-            angle = 35
-            axis = vector3(0,0,-1)
-            axis.normalize()
-            q = from_rotation_vector((axis * math.radians(angle) * delta_time).to_np3())
-            obj1.rotation = q * obj1.rotation
+        # Moves character
+        k = pygame.key.get_pressed()s
 
         # Moving Left - A (Inverted from Visualizer)
         if (k[pygame.K_a]):
             desloca = vector3(-0.005,0,0)
-
-            
             obj1.position += desloca
 
         # Moving Right - D (Inverted from Visualizer)
         if (k[pygame.K_d]):
             desloca = vector3(0.005,0,0)
-
-            
             obj1.position += desloca
 
         # Moving Forward - W (Q in Visualizer)
         if (k[pygame.K_w]):
             desloca = vector3(0,0,-0.005)
-
-            
             obj1.position += desloca
 
         # Moving Back - S (E in Visualizer)
         if (k[pygame.K_s]):
             desloca = vector3(0,0,0.005)
-
-            
             obj1.position += desloca
         
 
