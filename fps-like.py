@@ -118,14 +118,14 @@ def main():
             q = from_rotation_vector((axis * math.radians(angle) * delta_time).to_np3())
             obj1.rotation = q * obj1.rotation
 
-        # Moving Right - A (Inverted from Visualizer)
+        # Moving Left - A (Inverted from Visualizer)
         if (k[pygame.K_a]):
             desloca = vector3(-0.005,0,0)
 
             
             obj1.position += desloca
 
-        # Moving Left - D (Inverted from Visualizer)
+        # Moving Right - D (Inverted from Visualizer)
         if (k[pygame.K_d]):
             desloca = vector3(0.005,0,0)
 
@@ -145,7 +145,6 @@ def main():
 
             
             obj1.position += desloca
-
         
 
         scene.render(screen)
