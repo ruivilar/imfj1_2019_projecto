@@ -40,8 +40,9 @@ def main():
     # Create a second object, and add it as a child of the first object
     # When the first object rotates, this one will also mimic the transform
     obj2 = Object3d("ChildObject")
-    obj2.position += vector3(0, 0.75, 0)
-    obj2.mesh = Mesh.create_pyramid((0.5, 0.5, 0.5))
+    obj2.position += vector3(1, -2 , 2)
+    obj2.scale = vector3(3,3,3)
+    obj2.mesh = Mesh.create_pyramid((1, 1, 1))
     obj2.material = Material(color(1,1,1,1), "TestMaterial2")
     obj1.add_child(obj2)
 
@@ -59,12 +60,12 @@ def main():
     # pygame.draw.circle(screen,(1,1,0),(circle_location_x,circle_location_y),12)
 
     # Create a cube ( Adapted middle screen circle)
-    obj3 = Object3d("cube")
-    obj3.scale = vector3(0.01,0.01,0.01)
-    obj3.position += vector3(0,0.,0)
-    obj3.mesh = Mesh.create_cube((3,3,3))
-    obj3.material = Material(color(1,1,0,0), "TestMaterial3")
-    scene.add_object(obj3)
+    obj4 = Object3d("cube")
+    obj4.scale = vector3(0.01,0.01,0.01)
+    obj4.position += vector3(0,0.,0)
+    obj4.mesh = Mesh.create_cube((3,3,3))
+    obj4.material = Material(color(1,1,0,0), "TestMaterial3")
+    scene.add_object(obj4)
 
     # Specify the rotation of the object. It will rotate 15 degrees around the axis given, 
     # every second
