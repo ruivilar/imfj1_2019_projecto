@@ -9,6 +9,7 @@ from mesh import *
 from material import *
 from color import *
 
+# Copy of visualizer that will be tuned to look like an FPS
 # Define a main function, just to keep things nice and tidy
 def main():
     # Initialize pygame, with the default parameters
@@ -25,8 +26,8 @@ def main():
     scene = Scene("TestScene")
     scene.camera = Camera(False, res_x, res_y)
 
-    # Moves the camera back 2 units
-    scene.camera.position -= vector3(0,0,2)
+    # Moves the camera back 3 units
+    scene.camera.position -= vector3(0,0,3)
 
     # Create a pyramid and place it in a scene, at position (0,0,0)
     # This pyramid has a squared base that has 1 unit of side, and is pink.
@@ -117,45 +118,29 @@ def main():
             q = from_rotation_vector((axis * math.radians(angle) * delta_time).to_np3())
             obj1.rotation = q * obj1.rotation
 
-        # Object moves right - S
-        if (k[pygame.K_d]):
+        # Moving Right - A (Inverted from Visualizer)
+        if (k[pygame.K_a]):
             desloca = vector3(-0.005,0,0)
 
             
             obj1.position += desloca
 
-        # Object moves left - A
-        if (k[pygame.K_a]):
+        # Moving Left - D (Inverted from Visualizer)
+        if (k[pygame.K_d]):
             desloca = vector3(0.005,0,0)
 
             
             obj1.position += desloca
-       
 
-        # Object moves up - W
+        # Moving Forward - W (Q in Visualizer)
         if (k[pygame.K_w]):
-            desloca = vector3(0,0.005,0)
-
-            
-            obj1.position += desloca
-
-
-        # Object moves down - S
-        if (k[pygame.K_s]):
-            desloca = vector3(0,-0.005,0)
-
-            
-            obj1.position += desloca
-
-        # Object moves forward - Q
-        if (k[pygame.K_q]):
             desloca = vector3(0,0,-0.005)
 
             
             obj1.position += desloca
 
-        # 0bject moves back - E
-        if (k[pygame.K_e]):
+        # Moving Back - S (E in Visualizer)
+        if (k[pygame.K_s]):
             desloca = vector3(0,0,0.005)
 
             
