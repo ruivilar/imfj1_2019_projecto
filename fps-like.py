@@ -19,10 +19,6 @@ def main():
     res_x = 640
     res_y = 480
 
-    # Window limits for looking around (640/3)
-    leftside = 213
-    rightside = 426
-
     # Create a window and a display surface
     screen = pygame.display.set_mode((res_x, res_y))
 
@@ -31,7 +27,7 @@ def main():
     scene.camera = Camera(False, res_x, res_y)
 
     # Moves the camera back 3 units
-    scene.camera.position -= vector3(0,0,3)
+    scene.camera.position -= vector3(0,0,5)
 
     # Create a pyramid and place it in a scene, at position (0,0,0)
     # This pyramid has a squared base that has 1 unit of side, and is pink.
@@ -48,6 +44,27 @@ def main():
     obj2.mesh = Mesh.create_pyramid((0.5, 0.5, 0.5))
     obj2.material = Material(color(1,1,1,1), "TestMaterial2")
     obj1.add_child(obj2)
+
+    # Create a cube for the environment
+    obj3 = Object3d("ChildObject")
+    obj3.scale = vector3(2, 2, 2)
+    obj3.position = vector3(3, 1, 2)
+    obj3.mesh = Mesh.create_cube((1, 1, 1))
+    obj3.material = Material(color(1,0,0,1), "TestMaterial1")
+    obj1.add_child(obj3)
+
+    # Middle screen circle
+    # circle_location_x = res_x/2
+    # circle_location_y= res_y/2
+    # pygame.draw.circle(screen,(1,1,0),(circle_location_x,circle_location_y),12)
+
+    # Create a cube ( Adapted middle screen circle)
+    obj3 = Object3d("cube")
+    obj3.scale = vector3(0.01,0.01,0.01)
+    obj3.position += vector3(0,0.,0)
+    obj3.mesh = Mesh.create_cube((3,3,3))
+    obj3.material = Material(color(1,1,0,0), "TestMaterial3")
+    scene.add_object(obj3)
 
     # Specify the rotation of the object. It will rotate 15 degrees around the axis given, 
     # every second
@@ -75,7 +92,7 @@ def main():
         screen.fill((0,0,20))
 
         # Moves character
-        k = pygame.key.get_pressed()s
+        k = pygame.key.get_pressed()
 
         # Moving Left - A (Inverted from Visualizer)
         if (k[pygame.K_a]):
