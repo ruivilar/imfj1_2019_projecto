@@ -47,6 +47,18 @@ class Mesh:
         return mesh
 
     @staticmethod
+    def create_pyramid(size, mesh = None):
+        if (mesh == None):
+            mesh = Mesh("UnknownPyramid")
+
+        Mesh.create_quad(vector3(0, size[1] * 0.5, 0), vector3(size[0] * 0.5, 0), vector3(0, 0, size[2] * 0.5), mesh)
+
+        Mesh.create_triangle(vector3(size[0] * 0.5, 0, 0), vector3(0, size[1] * 0.5, 0), vector3(0, 0, size[2] * 0.5), mesh)
+        Mesh.create_triangle(vector3(-size[0] * 0.5, 0, 0), vector3(0, size[1] * 0.5, 0), vector3(0, 0, size[2] * 0.5), mesh)
+
+        return mesh
+
+    @staticmethod
     def create_quad(origin, axis0, axis1, mesh):
         if (mesh == None):
             mesh = Mesh("UnknownQuad")
@@ -56,6 +68,20 @@ class Mesh:
         poly.append(origin + axis0 - axis1)
         poly.append(origin - axis0 - axis1)
         poly.append(origin - axis0 + axis1)
+
+        mesh.polygons.append(poly)
+
+        return mesh
+
+    @staticmethod
+    def create_triangle(origin, axis0, axis1, mesh):
+        if (mesh == None):
+            mesh = Mesh("UnknownTriangle")
+
+        poly = []
+        poly.append(origin + axis0 + axis1)
+        poly.append(origin + axis0 - axis1)
+        poly.append(- axis0)
 
         mesh.polygons.append(poly)
 
